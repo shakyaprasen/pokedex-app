@@ -9,12 +9,17 @@ import {
   MatExpansionModule,
   MatInputModule,
   MatStepperModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
+import { DeferLoadModule } from '@trademe/ng-defer-load';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PokemonListComponent, PokemonDetailDialogComponent } from './pokemon-list/pokemon-list.component';
+import {
+  PokemonListComponent,
+  PokemonDetailDialogComponent
+} from './pokemon-list/pokemon-list.component';
 import { HeaderComponent } from './header/header.component';
 
 @NgModule({
@@ -25,6 +30,7 @@ import { HeaderComponent } from './header/header.component';
     PokemonDetailDialogComponent
   ],
   imports: [
+    DeferLoadModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -35,7 +41,8 @@ import { HeaderComponent } from './header/header.component';
     MatExpansionModule,
     MatInputModule,
     MatStepperModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatProgressSpinnerModule
   ],
   entryComponents: [PokemonDetailDialogComponent],
   providers: [],

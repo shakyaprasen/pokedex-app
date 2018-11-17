@@ -1,9 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { map } from 'rxjs/operators';
 
-const IMAGE_URL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/";
+const IMAGE_URL =
+  'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
 
 export interface DialogPokemonData {
   abilities: [];
@@ -21,44 +21,49 @@ export interface DialogPokemonData {
   styleUrls: ['./pokemon-list.component.css']
 })
 export class PokemonListComponent {
-
-  public pokeDexData = [];
+  public isLoading = false;
+  public searchName = '';
+  public pokeDexData: any[] = [];
   private searchedPokemons = [];
   private allPokemons = [];
   private i = 0;
 
-  constructor(
-    private http: HttpClient,
-    public dialog: MatDialog,
-  ) {}
+  constructor(private http: HttpClient, public dialog: MatDialog) {}
 
   fillPokeDex() {
+    if (this.allPokemons.length > 1) {
+      this.pokeDexData = [...this.allPokemons];
+      return;
+    }
+    this.isLoading = true;
     return this.http
       .get<any>('https://pokeapi.co/api/v2/pokemon/?limit=20&offset=20')
-      .subscribe( data => {
-        let tempData = data.results.slice(0,20);
-        tempData = tempData.map(data => {
-          const id = data.url.split('/');
-          data.id = id[id.length-2];
-          data.imageUrl = IMAGE_URL + data.id + ".png"
-          return  data
-        })
+      .subscribe(data => {
+        let tempData = data.results;
+        tempData = tempData.map(results => {
+          const id = results.url.split('/');
+          results.id = id[id.length - 2];
+          results.imageUrl = IMAGE_URL + results.id + '.png';
+          results.show = false;
+          return results;
+        });
         this.pokeDexData = [...tempData];
         this.allPokemons = [...tempData];
-      }
-      );
+        this.isLoading = false;
+      });
   }
 
   filterPokemon(e) {
     const filterString = e.target.value;
     this.searchedPokemons = [...this.pokeDexData];
-    this.pokeDexData = this.pokeDexData.filter(pokemon => {
+    this.pokeDexData = this.allPokemons.filter(pokemon => {
       const name = pokemon.name;
       return name.includes(filterString) ? pokemon : '';
     });
   }
 
-  clearFilter(){
+  clearFilter() {
+    this.searchName = '';
     this.pokeDexData = [...this.allPokemons];
     this.searchedPokemons = [];
   }
@@ -68,22 +73,18 @@ export class PokemonListComponent {
 
   showPokemonDetails(name: string) {
     const dialogRef = this.dialog.open(PokemonDetailDialogComponent, {
-      width: '600 px',
+      width: '200 px',
       data: name
     });
   }
 }
 
-
 @Component({
-  templateUrl: '../pokemon-detail.component.html'
+  templateUrl: '../pokemon-detail.component.html',
+  styleUrls: ['../pokemon-detail.component.css']
 })
 export class PokemonDetailDialogComponent implements OnInit {
-  pokeData: any= {};
-  types: any;
-  abilities: any;
-  moves: any;
-  stats: any;
+  pokeData = [];
 
   constructor(
     private http: HttpClient,
@@ -94,15 +95,9 @@ export class PokemonDetailDialogComponent implements OnInit {
   ngOnInit() {
     return this.http
       .get<any>(`https://pokeapi.co/api/v2/pokemon/${this.data}/`)
-      .subscribe( pokeData => {
+      .subscribe(pokeData => {
         this.pokeData = pokeData;
-        this.types = this.pokeData.types;
-        this.abilities = this.pokeData.abilities;
-        this.moves = this.pokeData.moves;
-        this.stats = this.pokeData.stats
-      }
-      );
-    
+      });
   }
   onNoClick(): void {
     this.dialogRef.close();

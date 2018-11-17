@@ -1,0 +1,37 @@
+.pokemon-type,
+.pokemon-ability {
+  display: inline;
+}
+.type-button,
+.ability-button {
+  margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+}
+.mat-dialog-container {
+  width: 400px;
+  height: 500px;
+  display: inline-block;
+}
+.mat-card-image {
+  height: 300px;
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+.basic-info {
+  display: inline;
+}
+.basic-label-1 {
+  text-align: left;
+}
+.basic-label-2 {
+  text-align: right;
+}
+.pokemon-name {
+  text-align: center;
+}
+.page-detail {
+  font-size: 1em;
+  font-weight: bold;
+  text-decoration: underline;
+}

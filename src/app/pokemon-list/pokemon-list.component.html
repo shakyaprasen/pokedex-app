@@ -2,35 +2,47 @@
 <button mat-button (click)="clearPokeDex()" color="primary">
   Clear PokeDex
 </button>
- <mat-form-field>
-<input type="text" matInput placeholder="Pokemon Name" (change)="filterPokemon($event)" name="filter">
+<mat-form-field>
+  <input
+    [value]="searchName"
+    (input)="searchName = $event.target.value"
+    type="text"
+    matInput
+    placeholder="Pokemon Name"
+    (keyup)="filterPokemon($event)"
+    name="filter"
+  />
 </mat-form-field>
-<!-- <button mat-button (click)="filterPokemon()" color="primary">
-  Filter name
-</button> -->
 <button mat-button (click)="clearFilter()" color="primary">
-  Clear Filter
+  Clear Filters
 </button>
 
 <br />
-<div class="pokemon-list">
-  <mat-card class="pokemon-card" *ngFor="let pokemon of pokeDexData, let i=index;">
-    <mat-card-header>
-      <mat-card-title>{{ pokeDexData.name }}</mat-card-title>
-    </mat-card-header>
-    <img
-      mat-card-image
-      src="{{ pokemon.imageUrl }}"
-      alt="Photo of {{ pokemon.name  }}"
-    />
-    <mat-card-actions>
-      <button
-        mat-raised-button
-        color="warn"
-        (click)="showPokemonDetails(pokemon.name)"
-      >
-        More!
-      </button>
-    </mat-card-actions>
-  </mat-card>
+<div class="pokemon-list" *ngIf="!isLoading">
+  <div
+    *ngFor="let pokemon of pokeDexData; let i = index"
+    (deferLoad)="pokemon.show = true"
+    style="height: 600px;"
+  >
+    <div
+      *ngIf="pokemon.show"
+      class="list-container"
+      (click)="showPokemonDetails(pokemon.name)"
+    >
+      <mat-card class="pokemon-card">
+        <mat-card-header>
+          <mat-card-title># {{ pokemon.id }} {{ pokemon.name }}</mat-card-title>
+        </mat-card-header>
+        <img
+          mat-card-image
+          src="{{ pokemon.imageUrl }}"
+          alt="Photo of {{ pokemon.name  }}"
+        />
+        <mat-card-actions> </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
 </div>
+
+<mat-spinner class="example-margin" color="accent" *ngIf="isLoading">
+</mat-spinner>

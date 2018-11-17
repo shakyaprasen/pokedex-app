@@ -1,35 +1,106 @@
-<h1 mat-dialog-title>
-  Hi {{ pokeData.name }}
-  <br />
-
-</h1>
 <mat-horizontal-stepper labelPosition="bottom" #stepper>
-    <mat-step completed="false">
-            <ng-template matStepLabel>Basic info</ng-template>
-            <div>
-              <div *ngFor="let type of types; let i = index">
-                <button mat-raised-button color="warn" id="i">{{ type.type.name }}</button>
-              </div>
-                <div *ngFor="let ability of abilities; let i = index">
-                  <button mat-raised-button color="warn" id="{{i}}">
-                    {{ ability.ability.name }}
-                  </button>
-              </div>
-            </div>
-    </mat-step>
-    <mat-step completed="false">
-            <ng-template matStepLabel>Stats</ng-template>
-            <div >
-              <div class="stats" *ngFor="let stat of stats">
-                <label aria-label>{{stat.stat.name}}</label><mat-progress-bar mode="determinate" value="{{stat.base_stat}}"></mat-progress-bar>
-              </div>
-            </div>
-    </mat-step >
-    <mat-step completed="false">
-        <ng-template matStepLabel>Done</ng-template>
-    </mat-step>
+  <mat-step completed="false">
+    <ng-template matStepLabel>Basic info</ng-template>
+    <div class="first-page">
+      <img
+        #frontDefault
+        mat-card-image
+        src="{{ pokeData?.sprites?.front_default }}"
+        alt="Photo of {{ pokeData?.name  }}"
+      />
+      <h2 class="pokemon-name">
+        #{{ pokeData?.id }} {{ pokeData?.name | uppercase }} <br />
+      </h2>
+    </div>
+
+    <div class="basic-info">
+      <label class="page-detail" aria-label>Basic Information </label>
+      <br /><label class="basic-label-1" aria-label> Height: </label>
+      {{ pokeData?.height }}
+      <label class="basic-label-2" aria-label> Weight: </label>
+      {{ pokeData?.weight }} <br />
+      <label class="basic-label-1" aria-label> Base Experience: </label>
+      {{ pokeData?.base_experience }}
+    </div>
+  </mat-step>
+  <mat-step completed="false">
+    <ng-template matStepLabel>Type/s and Abilities</ng-template>
+    <div class="second-page">
+      <img
+        #frontDefault
+        mat-card-image
+        src="{{ pokeData?.sprites?.front_default }}"
+        alt="Photo of {{ pokeData?.name  }}"
+      />
+      <h2 class="pokemon-name">
+        #{{ pokeData?.id }} {{ pokeData?.name | uppercase }} <br />
+      </h2>
+    </div>
+    <div class="type-div">
+      <label aria-label class="page-detail">Type: </label>
+      <div
+        *ngFor="let type of pokeData?.types; let i = index"
+        class="pokemon-type"
+      >
+        <button
+          #pokemonType
+          mat-raised-button
+          class="type-button"
+          color="warn"
+          id="{{i}}"
+        >
+          {{ type.type.name }}
+        </button>
+      </div>
+    </div>
+    <div class="abilities-div">
+      <label aria-label class="page-detail">Abilities: </label>
+      <div
+        class="pokemon-ability"
+        *ngFor="let ability of pokeData?.abilities; let i = index"
+      >
+        <button
+          #pokemonAbility
+          class="ability-button"
+          mat-raised-button
+          color="primary"
+          id="{{i}}"
+        >
+          {{ ability.ability.name }}
+        </button>
+      </div>
+    </div>
+  </mat-step>
+  <mat-step completed="false">
+    <ng-template matStepLabel>Stats</ng-template>
+    <div class="third-page">
+      <img
+        #frontDefault
+        mat-card-image
+        src="{{ pokeData?.sprites?.front_default }}"
+        alt="Photo of {{ pokeData?.name  }}"
+      />
+      <h2 class="pokemon-name">
+        #{{ pokeData?.id }} {{ pokeData?.name | uppercase }} <br />
+      </h2>
+    </div>
+    <div class="stat-detail">
+      <label aria-label class="page-detail">Stats </label>
+      <div class="stats" *ngFor="let stat of pokeData?.stats">
+        <label aria-label #pokemonStat>{{ stat.stat.name }}</label
+        ><mat-progress-bar
+          mode="determinate"
+          value="{{stat.base_stat}}"
+          color="warn"
+        ></mat-progress-bar>
+      </div>
+    </div>
+  </mat-step>
+  <mat-step completed="false">
+    <ng-template matStepLabel>Done</ng-template>
+  </mat-step>
 </mat-horizontal-stepper>
 
 <div mat-dialog-actions>
-<button mat-button (click)="onNoClick()">Done</button>
+  <button mat-button (click)="onNoClick()">Done</button>
 </div>

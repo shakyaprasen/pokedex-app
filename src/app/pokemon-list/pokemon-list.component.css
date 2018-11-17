@@ -1,23 +1,37 @@
- .mat-card {
-  max-width: 200px;
+.mat-card {
+  width: 200px;
   margin: 2rem;
   display: inline-block;
-  max-height: 292px;
+  height: 260px;
 }
-
+.mat-card:hover {
+  background: darkcyan;
+  cursor: pointer;
+  -moz-box-shadow: 0 0 10px #888888;
+  -webkit-box-shadow: 0 0 10px #888888;
+  box-shadow: 0 0 10px #888888;
+  transform: scale(1.1, 1.1);
+}
 .example-header-image {
   background-size: cover;
 }
-.mat-card-header{
+.mat-card-header {
   font-size: 28px;
-	margin:auto;
+  margin: auto;
 }
 .mat-card-image {
-	max-width: 200px;
-	max-height: 200px;
+  max-width: 200px;
+  max-height: 200px;
   margin: auto;
-} 
+}
 
 .mat-button {
   margin: auto;
+}
+.mat-spinner {
+  margin: auto;
+  display: block;
+}
+.list-container {
+  display: inline;
 }
