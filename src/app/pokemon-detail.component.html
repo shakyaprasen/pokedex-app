@@ -1,0 +1,35 @@
+<h1 mat-dialog-title>
+  Hi {{ pokeData.name }}
+  <br />
+
+</h1>
+<mat-horizontal-stepper labelPosition="bottom" #stepper>
+    <mat-step completed="false">
+            <ng-template matStepLabel>Basic info</ng-template>
+            <div>
+              <div *ngFor="let type of types; let i = index">
+                <button mat-raised-button color="warn" id="i">{{ type.type.name }}</button>
+              </div>
+                <div *ngFor="let ability of abilities; let i = index">
+                  <button mat-raised-button color="warn" id="{{i}}">
+                    {{ ability.ability.name }}
+                  </button>
+              </div>
+            </div>
+    </mat-step>
+    <mat-step completed="false">
+            <ng-template matStepLabel>Stats</ng-template>
+            <div >
+              <div class="stats" *ngFor="let stat of stats">
+                <label aria-label>{{stat.stat.name}}</label><mat-progress-bar mode="determinate" value="{{stat.base_stat}}"></mat-progress-bar>
+              </div>
+            </div>
+    </mat-step >
+    <mat-step completed="false">
+        <ng-template matStepLabel>Done</ng-template>
+    </mat-step>
+</mat-horizontal-stepper>
+
+<div mat-dialog-actions>
+<button mat-button (click)="onNoClick()">Done</button>
+</div>

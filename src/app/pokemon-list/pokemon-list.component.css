@@ -1,0 +1,23 @@
+ .mat-card {
+  max-width: 200px;
+  margin: 2rem;
+  display: inline-block;
+  max-height: 292px;
+}
+
+.example-header-image {
+  background-size: cover;
+}
+.mat-card-header{
+  font-size: 28px;
+	margin:auto;
+}
+.mat-card-image {
+	max-width: 200px;
+	max-height: 200px;
+  margin: auto;
+} 
+
+.mat-button {
+  margin: auto;
+}

@@ -1,0 +1,36 @@
+<button mat-button (click)="fillPokeDex()" color="primary">Load PokeDex</button>
+<button mat-button (click)="clearPokeDex()" color="primary">
+  Clear PokeDex
+</button>
+ <mat-form-field>
+<input type="text" matInput placeholder="Pokemon Name" (change)="filterPokemon($event)" name="filter">
+</mat-form-field>
+<!-- <button mat-button (click)="filterPokemon()" color="primary">
+  Filter name
+</button> -->
+<button mat-button (click)="clearFilter()" color="primary">
+  Clear Filter
+</button>
+
+<br />
+<div class="pokemon-list">
+  <mat-card class="pokemon-card" *ngFor="let pokemon of pokeDexData, let i=index;">
+    <mat-card-header>
+      <mat-card-title>{{ pokeDexData.name }}</mat-card-title>
+    </mat-card-header>
+    <img
+      mat-card-image
+      src="{{ pokemon.imageUrl }}"
+      alt="Photo of {{ pokemon.name  }}"
+    />
+    <mat-card-actions>
+      <button
+        mat-raised-button
+        color="warn"
+        (click)="showPokemonDetails(pokemon.name)"
+      >
+        More!
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
