@@ -10,6 +10,7 @@
   width: 400px;
   height: 500px;
   display: inline-block;
+  background: darkcyan;
 }
 .mat-card-image {
   height: 300px;

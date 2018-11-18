@@ -10,7 +10,8 @@ import {
   MatInputModule,
   MatStepperModule,
   MatProgressBarModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatSelectModule
 } from '@angular/material';
 import { DeferLoadModule } from '@trademe/ng-defer-load';
 
@@ -42,7 +43,8 @@ import { HeaderComponent } from './header/header.component';
     MatInputModule,
     MatStepperModule,
     MatProgressBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSelectModule
   ],
   entryComponents: [PokemonDetailDialogComponent],
   providers: [],
