@@ -75,12 +75,8 @@
   </div>
   <div
     class="outer-container"
-    *ngFor="let pokemon of pokeDexData; let i = index"
-    (deferLoad)="pokemon.show = true"
-  >
-    <div
-      *ngIf="pokemon.show"
-      class="list-container"
+    *ngFor="let pokemon of pokeDexData; let i = index" >
+    <div class="list-container"
       (click)="showPokemonDetails(pokemon.entry_number)"
     >
       <mat-card class="pokemon-card">
