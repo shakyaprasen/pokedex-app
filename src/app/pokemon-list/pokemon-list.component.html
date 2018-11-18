@@ -1,9 +1,6 @@
 <header class="header-class">
-  <button mat-button (click)="fillPokeDex()" color="accent">
+  <button mat-button mat-raised-button (click)="fillPokeDex()" color="accent">
     Load PokeDex
-  </button>
-  <button mat-button (click)="clearPokeDex()" color="accent">
-    Clear PokeDex
   </button>
   <mat-form-field>
     <input
@@ -12,13 +9,16 @@
       type="text"
       matInput
       placeholder="Pokemon Name"
-      (keyup)="filterByName($event)"
+      (keyup)="updateNameParameter($event)"
       name="filter"
     />
   </mat-form-field>
   <mat-form-field>
     <div class="gender">
-      <mat-select placeholder="Gender" (valueChange)="filterByGender($event)">
+      <mat-select
+        placeholder="Gender"
+        (valueChange)="updateGenderParameter($event)"
+      >
         <mat-option>None</mat-option>
         <mat-option *ngFor="let gender of genderData" [value]="gender.name">
           {{ gender.name }}
@@ -31,7 +31,7 @@
       <mat-select
         placeholder="Habitat"
         color="accent"
-        (valueChange)="filterByHabitat($event)"
+        (valueChange)="updateHabitatParameter($event)"
       >
         <mat-option>None</mat-option>
         <mat-option
@@ -49,7 +49,7 @@
       <mat-select
         placeholder="Region"
         color="warn"
-        (valueChange)="filterByRegion($event)"
+        (valueChange)="updateRegionParameter($event)"
       >
         <mat-option>None</mat-option>
         <mat-option
@@ -62,13 +62,12 @@
       </mat-select>
     </div>
   </mat-form-field>
-  <button mat-button (click)="search()" color="primary">Search</button>
-  <!--
-    <button mat-button (click)="clearFilter()" color="primary"> Clear </button>
-  -->
+  <button mat-button (click)="search()" mat-raised-button color="accent">
+    Search
+  </button>
 </header>
 <br />
-<mat-spinner class="example-margin" color="accent" *ngIf="isLoading">
+<mat-spinner class="index-spinner" color="accent" *ngIf="isLoading">
 </mat-spinner>
 <div class="pokemon-list" *ngIf="!isLoading">
   <div
@@ -83,8 +82,8 @@
     >
       <mat-card class="pokemon-card">
         <mat-card-header>
-          <mat-card-title
-            ># {{ pokemon.id }}
+          <mat-card-title class="pokemon-title"
+            >#{{ pokemon.id }}&nbsp;&nbsp;
             {{ pokemon.pokemon_species.name }}</mat-card-title
           >
         </mat-card-header>

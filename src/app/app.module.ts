@@ -1,53 +1,39 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  MatCardModule,
-  MatButtonModule,
-  MatDialogModule,
-  MatExpansionModule,
-  MatInputModule,
-  MatStepperModule,
-  MatProgressBarModule,
-  MatProgressSpinnerModule,
-  MatSelectModule
-} from '@angular/material';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DeferLoadModule } from '@trademe/ng-defer-load';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ErrorInterceptor } from './error-interceptor';
+import { ErrorComponent } from './error/error.component';
+import { AngularMaterialModule } from './angular-material.module';
+
 import {
   PokemonListComponent,
   PokemonDetailDialogComponent
 } from './pokemon-list/pokemon-list.component';
-import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PokemonListComponent,
-    HeaderComponent,
-    PokemonDetailDialogComponent
+    PokemonDetailDialogComponent,
+    ErrorComponent
   ],
   imports: [
     DeferLoadModule,
-    BrowserModule,
     AppRoutingModule,
+    BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatCardModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatExpansionModule,
-    MatInputModule,
-    MatStepperModule,
-    MatProgressBarModule,
-    MatProgressSpinnerModule,
-    MatSelectModule
+    AngularMaterialModule
   ],
-  entryComponents: [PokemonDetailDialogComponent],
-  providers: [],
+  entryComponents: [PokemonDetailDialogComponent, ErrorComponent],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

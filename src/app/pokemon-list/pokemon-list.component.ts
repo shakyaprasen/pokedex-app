@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, AfterViewChecked } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { map } from 'rxjs/operators';
@@ -92,10 +92,6 @@ export class PokemonListComponent implements OnInit {
       });
   }
 
-  // getPokemonId(url) {
-  //   const id = url.split('/');
-  //   return id[id.length - 2];
-  // }
   getGenderData() {
     const self = this;
     GENDER_DATA.forEach((item, index, arr) => {
@@ -140,21 +136,9 @@ export class PokemonListComponent implements OnInit {
     });
   }
 
-  clearFilter() {
-    this.searchName = '';
-    this.pokeDexData = [...this.allPokemons];
-    this.currentSearchResults = [...this.allPokemons];
-  }
   clearPokeDex() {
     this.pokeDexData = [];
     this.currentSearchResults = [];
-  }
-
-  showPokemonDetails(name: string) {
-    const dialogRef = this.dialog.open(PokemonDetailDialogComponent, {
-      width: '200 px',
-      data: name
-    });
   }
 
   search() {
@@ -162,19 +146,19 @@ export class PokemonListComponent implements OnInit {
     this.filterPokemon();
     this.isLoading = false;
   }
-  filterByName(e) {
+  updateNameParameter(e) {
     const filterString = e.target.value;
     this.searchName = filterString;
   }
-  filterByGender(gender) {
+  updateGenderParameter(gender) {
     this.searchGender = gender;
   }
 
-  filterByRegion(region) {
+  updateRegionParameter(region) {
     this.searchRegion = region;
   }
 
-  filterByHabitat(habitat) {
+  updateHabitatParameter(habitat) {
     this.searchHabitat = habitat;
   }
 
@@ -276,6 +260,7 @@ export class PokemonListComponent implements OnInit {
     });
     return;
   }
+
   searchPokemonByHabitat() {
     // filter habitat
     let filtered_data = {};
@@ -293,7 +278,6 @@ export class PokemonListComponent implements OnInit {
 
       for (const item of temp_data) {
         if (item.name === pokemon.pokemon_species.name) {
-          console.log(item);
           temp_data.splice(i, 1);
           filtered_data = item;
           flag = true;
@@ -305,6 +289,14 @@ export class PokemonListComponent implements OnInit {
     });
     return;
   }
+
+  showPokemonDetails(name: string) {
+    const dialogRef = this.dialog.open(PokemonDetailDialogComponent, {
+      width: '600px',
+      panelClass: 'dialog-box',
+      data: name
+    });
+  }
 }
 
 @Component({
@@ -313,6 +305,7 @@ export class PokemonListComponent implements OnInit {
 })
 export class PokemonDetailDialogComponent implements OnInit {
   pokeData = [];
+  isDialogLoading = true;
 
   constructor(
     private http: HttpClient,
@@ -325,6 +318,7 @@ export class PokemonDetailDialogComponent implements OnInit {
       .get<any>(`https://pokeapi.co/api/v2/pokemon/${this.data}/`)
       .subscribe(pokeData => {
         this.pokeData = pokeData;
+        this.isDialogLoading = false;
       });
   }
   onNoClick(): void {
