@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { map } from 'rxjs/operators';
 
+// Data Model for use in the Dialog Box
 export interface DialogPokemonData {
   abilities: [];
   base_experience: number;
@@ -15,6 +16,11 @@ export interface DialogPokemonData {
 }
 const IMAGE_URL =
   'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
+
+// URLS as constants
+const POKEDEX_URL = 'https://pokeapi.co/api/v2/pokedex/1/';
+
+const POKEAPI_URL = 'https://pokeapi.co/api/v2';
 
 // 'female': 1, 'male': 2,'unknown': 3
 const GENDER_DATA = [1, 2, 3];
@@ -57,6 +63,7 @@ export class PokemonListComponent implements OnInit {
   }
   constructor(private http: HttpClient, public dialog: MatDialog) {}
 
+  // fetch data from all the API's and clean data before processing
   fillPokeDex() {
     if (this.allPokemons.length > 1) {
       this.pokeDexData = [...this.allPokemons];
@@ -64,21 +71,23 @@ export class PokemonListComponent implements OnInit {
     }
     this.isLoading = true;
     return this.http
-      .get<any>('https://pokeapi.co/api/v2/pokedex/1/')
+      .get<any>(POKEDEX_URL)
       .pipe(
         map(data => {
           let tempData = data.pokemon_entries;
           return (tempData = tempData.map(results => {
-            results.id = results.entry_number; // this.getPokemonId(results.url);
-            results.imageUrl = IMAGE_URL + results.id + '.png';
+            results.id = results.entry_number;
+            results.imageUrl = IMAGE_URL + results.id + '.png'; // Add image_url to the data
             results.show = false;
             return results;
           }));
         })
       )
       .subscribe(finalData => {
+        // Load PokeDex API data before calling to remaining APIs
         this.asyncDataLoad(finalData).then(
           res => {
+            // fetch gender, habitat and region data using pokedex api data
             this.getGenderData();
             this.getHabitatData();
             this.getRegionData();
@@ -92,42 +101,39 @@ export class PokemonListComponent implements OnInit {
       });
   }
 
+  // fetch gender data from the API with reference to the Pokedex DATA
   getGenderData() {
     const self = this;
     GENDER_DATA.forEach((item, index, arr) => {
-      self.http
-        .get(`https://pokeapi.co/api/v2/gender/${item}/`)
-        .subscribe(res => {
-          const resArray = [res];
-          self.genderData = self.genderData.concat(resArray);
-        });
+      self.http.get(`${POKEAPI_URL}/gender/${item}/`).subscribe(res => {
+        const resArray = [res];
+        self.genderData = self.genderData.concat(resArray);
+      });
     }, self);
   }
-
+  // fetch habitat data from the API with reference to the Pokedex DATA
   getHabitatData() {
     const self = this;
     HABITAT_DATA.forEach((item, index, arr) => {
       self.http
-        .get(`https://pokeapi.co/api/v2/pokemon-habitat/${item}/`)
+        .get(`${POKEAPI_URL}/pokemon-habitat/${item}/`)
         .subscribe(res => {
           const resArray = [res];
           self.habitatData = self.habitatData.concat(resArray);
         });
     }, self);
   }
-
+  // fetch region data from the API with reference to the Pokedex DATA
   getRegionData() {
     const self = this;
     REGION_DATA.forEach((item, index, arr) => {
-      self.http
-        .get(`https://pokeapi.co/api/v2/region/${item}/`)
-        .subscribe(res => {
-          const resArray = [res];
-          self.regionData = self.regionData.concat(resArray);
-        });
+      self.http.get(`${POKEAPI_URL}/region/${item}/`).subscribe(res => {
+        const resArray = [res];
+        self.regionData = self.regionData.concat(resArray);
+      });
     }, self);
   }
-
+  // Insert the data to the binded array (pokeDexData) in async mode
   asyncDataLoad(tempData: any) {
     return Promise.resolve().then(v => {
       this.pokeDexData = [...tempData];
@@ -136,32 +142,44 @@ export class PokemonListComponent implements OnInit {
     });
   }
 
+  // Clear the current pokeDexData
   clearPokeDex() {
     this.pokeDexData = [];
     this.currentSearchResults = [];
   }
 
+  // call search function
   search() {
     this.isLoading = true;
     this.filterPokemon();
     this.isLoading = false;
   }
+  // update name search parameter with key up
   updateNameParameter(e) {
     const filterString = e.target.value;
     this.searchName = filterString;
+    if (e.code === 'Enter') {
+      this.search();
+    }
+    return;
   }
+  // update the gender parameter from gender select menu
   updateGenderParameter(gender) {
     this.searchGender = gender;
+    return;
   }
-
+  // update the region parameter from gender select menu
   updateRegionParameter(region) {
     this.searchRegion = region;
+    return;
   }
-
+  // update the habitat parameter from gender select menu
   updateHabitatParameter(habitat) {
     this.searchHabitat = habitat;
+    return;
   }
 
+  // Filter function where the current search params are taken and the pokeDexData is filtered
   filterPokemon() {
     this.currentSearchResults = [...this.allPokemons];
     if (this.currentSearchResults.length < 1) {
@@ -183,6 +201,7 @@ export class PokemonListComponent implements OnInit {
       this.searchGender !== null &&
       this.searchGender !== undefined
     ) {
+      // filter by gender
       this.searchPokemonByGender();
     }
     if (
@@ -190,20 +209,23 @@ export class PokemonListComponent implements OnInit {
       this.searchRegion !== null &&
       this.searchRegion !== undefined
     ) {
+      // filter by region
       this.searchPokemonByRegion();
     }
     if (
+      // filter by habitat
       this.searchHabitat !== '' &&
       this.searchHabitat !== null &&
       this.searchHabitat !== undefined
     ) {
       this.searchPokemonByHabitat();
     }
-
+    // load filtered data to the binded array
     this.pokeDexData = this.currentSearchResults;
     this.isLoading = false;
   }
 
+  // Compare and filter data from Region API with data from  pokeDexData and region name/id
   searchPokemonByRegion() {
     let matched_region: any;
     this.regionData.forEach((item, index, arr) => {
@@ -228,6 +250,7 @@ export class PokemonListComponent implements OnInit {
     });
     return;
   }
+  // Compare and filter data from Gender API with data from  pokeDexData and gender name/id
   searchPokemonByGender() {
     // filter gender
     let filtered_data = {};
@@ -260,7 +283,7 @@ export class PokemonListComponent implements OnInit {
     });
     return;
   }
-
+  // Compare and filter data from Habitat API with data from  pokeDexData and habitat name/id
   searchPokemonByHabitat() {
     // filter habitat
     let filtered_data = {};
@@ -289,16 +312,17 @@ export class PokemonListComponent implements OnInit {
     });
     return;
   }
-
-  showPokemonDetails(name: string) {
+  // Open a new dialog box showing Pokemon Details
+  showPokemonDetails(id: number) {
     const dialogRef = this.dialog.open(PokemonDetailDialogComponent, {
       width: '600px',
       panelClass: 'dialog-box',
-      data: name
+      data: id
     });
   }
 }
 
+// Pokemon details dialog box component
 @Component({
   templateUrl: '../pokemon-detail.component.html',
   styleUrls: ['../pokemon-detail.component.css']
@@ -314,8 +338,9 @@ export class PokemonDetailDialogComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // call to pokemon details url on initialization
     return this.http
-      .get<any>(`https://pokeapi.co/api/v2/pokemon/${this.data}/`)
+      .get<any>(`${POKEAPI_URL}/pokemon/${this.data}/`)
       .subscribe(pokeData => {
         this.pokeData = pokeData;
         this.isDialogLoading = false;

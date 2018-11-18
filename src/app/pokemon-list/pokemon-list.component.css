@@ -48,3 +48,8 @@
 .header-class {
   background: #424242;
 }
+.empty-message > h3 {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}

@@ -70,6 +70,9 @@
 <mat-spinner class="index-spinner" color="accent" *ngIf="isLoading">
 </mat-spinner>
 <div class="pokemon-list" *ngIf="!isLoading">
+  <div class="empty-message" *ngIf="pokeDexData.length < 1">
+    <h3>Empty! Please try reloading or changing the search options!</h3>
+  </div>
   <div
     class="outer-container"
     *ngFor="let pokemon of pokeDexData; let i = index"
@@ -78,12 +81,12 @@
     <div
       *ngIf="pokemon.show"
       class="list-container"
-      (click)="showPokemonDetails(pokemon.pokemon_species.name)"
+      (click)="showPokemonDetails(pokemon.entry_number)"
     >
       <mat-card class="pokemon-card">
         <mat-card-header>
           <mat-card-title class="pokemon-title"
-            >#{{ pokemon.id }}&nbsp;&nbsp;
+            >#{{ pokemon.entry_number }}&nbsp;&nbsp;
             {{ pokemon.pokemon_species.name }}</mat-card-title
           >
         </mat-card-header>
