@@ -3,8 +3,6 @@ Get every pokemon from the national POKEDEX!
 
 Search using name, habitat, gender and their region(generation)
 
-Contains lazy loading for loading DOM elements onto the viewport.
-
 To run - `npm install`
        - `ng serve`
        - Navigate to `http://localhost:4200/` and wait for the Pokedex to load data
