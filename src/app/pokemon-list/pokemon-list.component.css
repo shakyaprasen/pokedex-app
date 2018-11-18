@@ -43,8 +43,8 @@
 }
 .outer-container {
   margin: 20px 20px 10px 10px;
-  display: inline;
-  height: 600px;
+  display: inline-block;
+  height: 300px;
 }
 .header-class {
   background: #424242;
