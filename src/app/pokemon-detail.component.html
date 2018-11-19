@@ -9,29 +9,18 @@
           src="{{ pokeData?.sprites?.front_default }}"
           alt="Photo of {{ pokeData?.name  }}"
         />
-        <h2 class="pokemon-name">
-          #{{ pokeData?.id }} {{ pokeData?.name | uppercase }} <br />
-        </h2>
+        <h2 class="pokemon-name">#{{ pokeData?.id }} {{ pokeData?.name | uppercase }} <br /></h2>
       </div>
 
       <div class="basic-info">
         <label class="mid-detail" aria-label>Basic Information </label>
         <table class="table">
           <tr>
-            <td>
-              <label class="basic-label-1" aria-label> Height: </label>
-              {{ pokeData?.height }}
-            </td>
-            <td>
-              <label class="basic-label-2" aria-label> Weight: </label>
-              {{ pokeData?.weight }}
-            </td>
+            <td><label class="basic-label-1" aria-label> Height: </label> {{ pokeData?.height }}</td>
+            <td><label class="basic-label-2" aria-label> Weight: </label> {{ pokeData?.weight }}</td>
           </tr>
           <tr>
-            <td>
-              <label class="basic-label-1" aria-label> Base Experience: </label>
-              {{ pokeData?.base_experience }}
-            </td>
+            <td><label class="basic-label-1" aria-label> Base Experience: </label> {{ pokeData?.base_experience }}</td>
           </tr>
         </table>
       </div>
@@ -45,40 +34,20 @@
           src="{{ pokeData?.sprites?.front_default }}"
           alt="Photo of {{ pokeData?.name  }}"
         />
-        <h2 class="pokemon-name">
-          #{{ pokeData?.id }} {{ pokeData?.name | uppercase }} <br />
-        </h2>
+        <h2 class="pokemon-name">#{{ pokeData?.id }} {{ pokeData?.name | uppercase }} <br /></h2>
       </div>
       <div class="type-div">
         <label aria-label class="page-detail">Type: </label>
-        <div
-          *ngFor="let type of pokeData?.types; let i = index"
-          class="pokemon-type"
-        >
-          <button
-            #pokemonType
-            mat-raised-button
-            class="type-button"
-            color="warn"
-            id="{{i}}"
-          >
+        <div *ngFor="let type of pokeData?.types; let i = index" class="pokemon-type">
+          <button #pokemonType mat-raised-button class="type-button" color="warn" id="{{i}}">
             {{ type.type.name }}
           </button>
         </div>
       </div>
       <div class="abilities-div">
         <label aria-label class="page-detail">Abilities: </label>
-        <div
-          class="pokemon-ability"
-          *ngFor="let ability of pokeData?.abilities; let i = index"
-        >
-          <button
-            #pokemonAbility
-            class="ability-button"
-            mat-raised-button
-            color="primary"
-            id="{{i}}"
-          >
+        <div class="pokemon-ability" *ngFor="let ability of pokeData?.abilities; let i = index">
+          <button #pokemonAbility class="ability-button" mat-raised-button color="primary" id="{{i}}">
             {{ ability.ability.name }}
           </button>
         </div>
@@ -99,26 +68,14 @@
         <label aria-label class="mid-detail">Stats </label>
         <div class="stats" *ngFor="let stat of pokeData?.stats">
           <label aria-label #pokemonStat>{{ stat.stat.name }}</label
-          ><mat-progress-bar
-            mode="determinate"
-            value="{{stat.base_stat}}"
-            color="warn"
-          ></mat-progress-bar>
+          ><mat-progress-bar mode="determinate" value="{{stat.base_stat}}" color="warn"></mat-progress-bar>
         </div>
       </div>
     </mat-step>
   </mat-horizontal-stepper>
 
   <div mat-dialog-actions>
-    <button
-      mat-raised-button
-      (click)="onNoClick()"
-      color="accent"
-      class="back-button"
-    >
-      Back
-    </button>
+    <button mat-raised-button (click)="onNoClick()" color="accent" class="back-button">Back</button>
   </div>
 </div>
-<mat-spinner class="dialog-spinner" color="accent" *ngIf="isDialogLoading">
-</mat-spinner>
+<mat-spinner class="dialog-spinner" color="accent" *ngIf="isDialogLoading"> </mat-spinner>
