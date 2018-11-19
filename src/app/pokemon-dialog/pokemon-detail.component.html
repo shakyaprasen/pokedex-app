@@ -1,7 +1,7 @@
 <div *ngIf="!isDialogLoading">
   <mat-horizontal-stepper labelPosition="bottom" #stepper>
     <mat-step completed="false">
-      <ng-template matStepLabel>Basic info</ng-template>
+      <ng-template matStepLabel>Basic info </ng-template>
       <div class="first-page">
         <img
           #frontDefault
@@ -60,7 +60,7 @@
           #frontDefault
           mat-card-image
           src="{{ pokeData?.sprites?.front_default }}"
-          alt="Photo of {{ pokeData?.name  }}"
+          alt="Photo of {{ pokeData?.name }}"
         />
         <h2 class="pokemon-name">#{{ pokeData?.id }} {{ pokeData?.name | uppercase }} <br /></h2>
       </div>

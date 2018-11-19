@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "format:check": "prettier --config ./.prettierrc --list-different --write \"./src/app/**/*{.ts,.js,.json,.css}\""
+    "format:check": "prettier --config ./.prettierrc --list-different --write \"./src/app/**/**/*{.ts,.js,.json,.css}\""
   },
   "private": true,
   "dependencies": {
