@@ -14,8 +14,7 @@ export interface DialogPokemonData {
   types: [];
   weight: number;
 }
-const IMAGE_URL =
-  'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
+const IMAGE_URL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
 
 // URLS as constants
 const POKEDEX_URL = 'https://pokeapi.co/api/v2/pokedex/1/';
@@ -83,17 +82,19 @@ export class PokemonListComponent implements OnInit {
           }));
         })
       )
-      .subscribe(finalData => {
-        // Load PokeDex API data before calling to remaining APIs
-        this.asyncDataLoad(finalData).then();
-        this.getGenderData();
-        this.getHabitatData();
-        this.getRegionData();
-        this.isLoading = false;
-      },
-      error => {
-        console.log(error);
-      });
+      .subscribe(
+        finalData => {
+          // Load PokeDex API data before calling to remaining APIs
+          this.asyncDataLoad(finalData).then();
+          this.getGenderData();
+          this.getHabitatData();
+          this.getRegionData();
+          this.isLoading = false;
+        },
+        error => {
+          console.log(error);
+        }
+      );
   }
 
   // fetch gender data from the API with reference to the Pokedex DATA
@@ -110,12 +111,10 @@ export class PokemonListComponent implements OnInit {
   getHabitatData() {
     const self = this;
     HABITAT_DATA.forEach((item, index, arr) => {
-      self.http
-        .get(`${POKEAPI_URL}/pokemon-habitat/${item}/`)
-        .subscribe(res => {
-          const resArray = [res];
-          self.habitatData = self.habitatData.concat(resArray);
-        });
+      self.http.get(`${POKEAPI_URL}/pokemon-habitat/${item}/`).subscribe(res => {
+        const resArray = [res];
+        self.habitatData = self.habitatData.concat(resArray);
+      });
     }, self);
   }
   // fetch region data from the API with reference to the Pokedex DATA
@@ -130,9 +129,9 @@ export class PokemonListComponent implements OnInit {
   }
   // Insert the data to the binded array (pokeDexData) in async mode
   asyncDataLoad(tempData: any) {
-    return new Promise((resolve, reject) => {     
-	  this.pokeDexData = [...tempData];
-  	  this.allPokemons = [...tempData];
+    return new Promise((resolve, reject) => {
+      this.pokeDexData = [...tempData];
+      this.allPokemons = [...tempData];
       this.currentSearchResults = [...tempData];
       resolve();
     });
@@ -192,19 +191,11 @@ export class PokemonListComponent implements OnInit {
         return name.includes(this.searchName) ? pokemon : '';
       });
     }
-    if (
-      this.searchGender !== '' &&
-      this.searchGender !== null &&
-      this.searchGender !== undefined
-    ) {
+    if (this.searchGender !== '' && this.searchGender !== null && this.searchGender !== undefined) {
       // filter by gender
       this.searchPokemonByGender();
     }
-    if (
-      this.searchRegion !== '' &&
-      this.searchRegion !== null &&
-      this.searchRegion !== undefined
-    ) {
+    if (this.searchRegion !== '' && this.searchRegion !== null && this.searchRegion !== undefined) {
       // filter by region
       this.searchPokemonByRegion();
     }
@@ -236,10 +227,7 @@ export class PokemonListComponent implements OnInit {
       }
     });
     this.currentSearchResults = this.currentSearchResults.filter(pokemon => {
-      if (
-        pokemon.id <= matched_region.upper_limit &&
-        pokemon.id >= matched_region.lower_limit
-      ) {
+      if (pokemon.id <= matched_region.upper_limit && pokemon.id >= matched_region.lower_limit) {
         return true;
       }
       return false;
@@ -335,12 +323,10 @@ export class PokemonDetailDialogComponent implements OnInit {
 
   ngOnInit() {
     // call to pokemon details url on initialization
-    return this.http
-      .get<any>(`${POKEAPI_URL}/pokemon/${this.data}/`)
-      .subscribe(pokeData => {
-        this.pokeData = pokeData;
-        this.isDialogLoading = false;
-      });
+    return this.http.get<any>(`${POKEAPI_URL}/pokemon/${this.data}/`).subscribe(pokeData => {
+      this.pokeData = pokeData;
+      this.isDialogLoading = false;
+    });
   }
   onNoClick(): void {
     this.dialogRef.close();

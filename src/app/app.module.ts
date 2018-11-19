@@ -10,18 +10,10 @@ import { ErrorInterceptor } from './error-interceptor';
 import { ErrorComponent } from './error/error.component';
 import { AngularMaterialModule } from './angular-material.module';
 
-import {
-  PokemonListComponent,
-  PokemonDetailDialogComponent
-} from './pokemon-list/pokemon-list.component';
+import { PokemonListComponent, PokemonDetailDialogComponent } from './pokemon-list/pokemon-list.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    PokemonListComponent,
-    PokemonDetailDialogComponent,
-    ErrorComponent
-  ],
+  declarations: [AppComponent, PokemonListComponent, PokemonDetailDialogComponent, ErrorComponent],
   imports: [
     DeferLoadModule,
     AppRoutingModule,
@@ -31,9 +23,7 @@ import {
     AngularMaterialModule
   ],
   entryComponents: [PokemonDetailDialogComponent, ErrorComponent],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
-  ],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

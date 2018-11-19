@@ -1,7 +1,5 @@
 <header class="header-class">
-  <button mat-button mat-raised-button (click)="fillPokeDex()" color="accent">
-    Load PokeDex
-  </button>
+  <button mat-button mat-raised-button (click)="fillPokeDex()" color="accent">Load PokeDex</button>
   <mat-form-field>
     <input
       [value]="searchName"
@@ -15,30 +13,17 @@
   </mat-form-field>
   <mat-form-field>
     <div class="gender">
-      <mat-select
-        placeholder="Gender"
-        (valueChange)="updateGenderParameter($event)"
-      >
+      <mat-select placeholder="Gender" (valueChange)="updateGenderParameter($event)">
         <mat-option>None</mat-option>
-        <mat-option *ngFor="let gender of genderData" [value]="gender.name">
-          {{ gender.name }}
-        </mat-option>
+        <mat-option *ngFor="let gender of genderData" [value]="gender.name"> {{ gender.name }} </mat-option>
       </mat-select>
     </div>
   </mat-form-field>
   <mat-form-field>
     <div class="habitat">
-      <mat-select
-        placeholder="Habitat"
-        color="accent"
-        (valueChange)="updateHabitatParameter($event)"
-      >
+      <mat-select placeholder="Habitat" color="accent" (valueChange)="updateHabitatParameter($event)">
         <mat-option>None</mat-option>
-        <mat-option
-          *ngFor="let habitat of habitatData"
-          name="habitat.name"
-          [value]="habitat.name"
-        >
+        <mat-option *ngFor="let habitat of habitatData" name="habitat.name" [value]="habitat.name">
           {{ habitat.name }}
         </mat-option>
       </mat-select>
@@ -46,51 +31,31 @@
   </mat-form-field>
   <mat-form-field>
     <div class="region">
-      <mat-select
-        placeholder="Region"
-        color="warn"
-        (valueChange)="updateRegionParameter($event)"
-      >
+      <mat-select placeholder="Region" color="warn" (valueChange)="updateRegionParameter($event)">
         <mat-option>None</mat-option>
-        <mat-option
-          *ngFor="let region of regionData"
-          name="region.name"
-          [value]="region.name"
-        >
+        <mat-option *ngFor="let region of regionData" name="region.name" [value]="region.name">
           {{ region.name }}
         </mat-option>
       </mat-select>
     </div>
   </mat-form-field>
-  <button mat-button (click)="search()" mat-raised-button color="accent">
-    Search
-  </button>
+  <button mat-button (click)="search()" mat-raised-button color="accent">Search</button>
 </header>
 <br />
-<mat-spinner class="index-spinner" color="accent" *ngIf="isLoading">
-</mat-spinner>
+<mat-spinner class="index-spinner" color="accent" *ngIf="isLoading"> </mat-spinner>
 <div class="pokemon-list" *ngIf="!isLoading">
   <div class="empty-message" *ngIf="pokeDexData.length < 1">
     <h3>Empty! Please try reloading or changing the search options!</h3>
   </div>
-  <div
-    class="outer-container"
-    *ngFor="let pokemon of pokeDexData; let i = index" >
-    <div class="list-container"
-      (click)="showPokemonDetails(pokemon.entry_number)"
-    >
+  <div class="outer-container" *ngFor="let pokemon of pokeDexData; let i = index">
+    <div class="list-container" (click)="showPokemonDetails(pokemon.entry_number)">
       <mat-card class="pokemon-card">
         <mat-card-header>
           <mat-card-title class="pokemon-title"
-            >#{{ pokemon.entry_number }}&nbsp;&nbsp;
-            {{ pokemon.pokemon_species.name }}</mat-card-title
+            >#{{ pokemon.entry_number }}&nbsp;&nbsp; {{ pokemon.pokemon_species.name }}</mat-card-title
           >
         </mat-card-header>
-        <img
-          mat-card-image
-          src="{{ pokemon.imageUrl }}"
-          alt="Photo of {{ pokemon.pokemon_species.name  }}"
-        />
+        <img mat-card-image src="{{ pokemon.imageUrl }}" alt="Photo of {{ pokemon.pokemon_species.name  }}" />
         <mat-card-actions> </mat-card-actions>
       </mat-card>
     </div>

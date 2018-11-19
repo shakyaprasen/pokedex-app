@@ -1,9 +1,4 @@
-import {
-  HttpInterceptor,
-  HttpHandler,
-  HttpRequest,
-  HttpErrorResponse
-} from '@angular/common/http';
+import { HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { Injectable } from '@angular/core';
@@ -18,8 +13,7 @@ export class ErrorInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
-        let errorMessage =
-          'An Unknown Error Occured! Please check the console for more info';
+        let errorMessage = 'An Unknown Error Occured! Please check the console for more info';
         if (error.error.message) {
           errorMessage = error.error.message;
         }
