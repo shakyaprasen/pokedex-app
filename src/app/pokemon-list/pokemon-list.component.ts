@@ -85,19 +85,14 @@ export class PokemonListComponent implements OnInit {
       )
       .subscribe(finalData => {
         // Load PokeDex API data before calling to remaining APIs
-        this.asyncDataLoad(finalData).then(
-          res => {
-            // fetch gender, habitat and region data using pokedex api data
-            this.getGenderData();
-            this.getHabitatData();
-            this.getRegionData();
-            this.isLoading = false;
-          },
-          error => {
-            console.log(error);
-          }
-        );
+        this.asyncDataLoad(finalData).then();
+        this.getGenderData();
+        this.getHabitatData();
+        this.getRegionData();
         this.isLoading = false;
+      },
+      error => {
+        console.log(error);
       });
   }
 
@@ -135,10 +130,11 @@ export class PokemonListComponent implements OnInit {
   }
   // Insert the data to the binded array (pokeDexData) in async mode
   asyncDataLoad(tempData: any) {
-    return Promise.resolve().then(v => {
-      this.pokeDexData = [...tempData];
-      this.allPokemons = [...tempData];
+    return new Promise((resolve, reject) => {     
+	  this.pokeDexData = [...tempData];
+  	  this.allPokemons = [...tempData];
       this.currentSearchResults = [...tempData];
+      resolve();
     });
   }
 
