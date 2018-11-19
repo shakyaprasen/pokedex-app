@@ -1,19 +1,10 @@
-import { Component, Inject, OnInit, AfterViewChecked } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { map } from 'rxjs/operators';
 
-// Data Model for use in the Dialog Box
-export interface DialogPokemonData {
-  abilities: [];
-  base_experience: number;
-  height: number;
-  id: number;
-  moves: [];
-  stats: [];
-  types: [];
-  weight: number;
-}
+import { PokemonDetailDialogComponent } from '../pokemon-dialog/pokemon-dialog.component';
+
 const IMAGE_URL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
 
 // URLS as constants
@@ -303,32 +294,5 @@ export class PokemonListComponent implements OnInit {
       panelClass: 'dialog-box',
       data: id
     });
-  }
-}
-
-// Pokemon details dialog box component
-@Component({
-  templateUrl: '../pokemon-detail.component.html',
-  styleUrls: ['../pokemon-detail.component.css']
-})
-export class PokemonDetailDialogComponent implements OnInit {
-  pokeData = [];
-  isDialogLoading = true;
-
-  constructor(
-    private http: HttpClient,
-    public dialogRef: MatDialogRef<PokemonDetailDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogPokemonData
-  ) {}
-
-  ngOnInit() {
-    // call to pokemon details url on initialization
-    return this.http.get<any>(`${POKEAPI_URL}/pokemon/${this.data}/`).subscribe(pokeData => {
-      this.pokeData = pokeData;
-      this.isDialogLoading = false;
-    });
-  }
-  onNoClick(): void {
-    this.dialogRef.close();
   }
 }

@@ -10,7 +10,8 @@ import { ErrorInterceptor } from './error-interceptor';
 import { ErrorComponent } from './error/error.component';
 import { AngularMaterialModule } from './angular-material.module';
 
-import { PokemonListComponent, PokemonDetailDialogComponent } from './pokemon-list/pokemon-list.component';
+import { PokemonListComponent } from './pokemon-list/pokemon-list.component';
+import { PokemonDetailDialogComponent } from './pokemon-dialog/pokemon-dialog.component';
 
 @NgModule({
   declarations: [AppComponent, PokemonListComponent, PokemonDetailDialogComponent, ErrorComponent],
