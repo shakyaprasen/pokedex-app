@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -95,45 +95,58 @@ export class PokemonService {
   // Compare and filter data from Gender API with data from  pokeDexData and gender name/id
   searchByGender(searchArray: any, searchGender: string, genderData?) {
     // filter gender
-    let filtered_data = {};
-    let matched_data = [];
+    //let filtered_data = {};
+    let matched_data;
 
-    genderData.forEach((item, index, arr) => {
-      if (item.name === searchGender) {
-        matched_data = item.pokemon_species_details;
-      }
-    });
+    // genderData.forEach((item, index, arr) => {
+    //   if (item.name === searchGender) {
+    //     matched_data = item.pokemon_species_details;
+    //   }
+    // });
+    matched_data = genderData.find(x => x.name === searchGender);
+
     const matched_pokemon = [];
 
-    matched_data.forEach((item, index, arr) => {
-      matched_pokemon.push(item.pokemon_species);
-    });
-
+    // matched_data.forEach((item, index, arr) => {
+    //   matched_pokemon.push(item.pokemon_species);
+    // });
     return searchArray.filter(pokemon => {
-      let i = 0;
-      let flag = false;
-
-      for (const item of matched_pokemon) {
-        if (item.name === pokemon.pokemon_species.name) {
-          matched_pokemon.splice(i, 1);
-          filtered_data = item;
-          flag = true;
-          break;
-        }
-        i++;
+      if (
+        matched_data.pokemon_species_details.find(x => x.pokemon_species.name === pokemon.pokemon_species.name) ===
+        undefined
+      ) {
+        return false;
       }
-      return flag;
+      return true;
     });
+
+    // return searchArray.filter(pokemon => {
+    //   let i = 0;
+    //   let flag = false;
+
+    //   for (const item of matched_pokemon) {
+    //     if (item.name === pokemon.pokemon_species.name) {
+    //       matched_pokemon.splice(i, 1);
+    //       filtered_data = item;
+    //       flag = true;
+    //       break;
+    //     }
+    //     i++;
+    //   }
+    //   return flag;
+    // });
   }
 
   // Compare and filter data from Region API with data from  pokeDexData and region name/id
   searchByRegion(searchArray: any, searchRegion: string, regionData?) {
     let matched_region: any;
-    regionData.forEach((item, index, arr) => {
-      if (item.name === searchRegion) {
-        matched_region = item;
-      }
-    });
+    // regionData.forEach((item, index, arr) => {
+    //   if (item.name === searchRegion) {
+    //     matched_region = item;
+    //   }
+    // });
+    matched_region = regionData.find(x => x.name === searchRegion);
+
     POKEMON_BY_REGION_ID.forEach((item, index, array) => {
       if (item.id === matched_region.id) {
         matched_region.upper_limit = item.upper_limit;
@@ -147,32 +160,20 @@ export class PokemonService {
       return false;
     });
   }
+
   // Compare and filter data from Habitat API with data from  pokeDexData and habitat name/id
   searchByHabitat(searchArray: any, searchHabitat: string, habitatData?) {
     // filter habitat
-    let filtered_data = {};
+    const filtered_data = [];
     let matched_data: any;
 
-    habitatData.forEach((item, index, arr) => {
-      if (item.name === searchHabitat) {
-        matched_data = item.pokemon_species;
-      }
-    });
-    const temp_data = [...matched_data];
-    return searchArray.filter(pokemon => {
-      let i = 0;
-      let flag = false;
+    matched_data = habitatData.find(x => x.name === searchHabitat);
 
-      for (const item of temp_data) {
-        if (item.name === pokemon.pokemon_species.name) {
-          temp_data.splice(i, 1);
-          filtered_data = item;
-          flag = true;
-          break;
-        }
-        i++;
+    return searchArray.filter(pokemon => {
+      if (matched_data.pokemon_species.find(x => x.name === pokemon.pokemon_species.name) === undefined) {
+        return false;
       }
-      return flag;
+      return true;
     });
   }
 }
