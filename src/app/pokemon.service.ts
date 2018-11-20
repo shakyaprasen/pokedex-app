@@ -98,18 +98,10 @@ export class PokemonService {
     //let filtered_data = {};
     let matched_data;
 
-    // genderData.forEach((item, index, arr) => {
-    //   if (item.name === searchGender) {
-    //     matched_data = item.pokemon_species_details;
-    //   }
-    // });
     matched_data = genderData.find(x => x.name === searchGender);
 
     const matched_pokemon = [];
 
-    // matched_data.forEach((item, index, arr) => {
-    //   matched_pokemon.push(item.pokemon_species);
-    // });
     return searchArray.filter(pokemon => {
       if (
         matched_data.pokemon_species_details.find(x => x.pokemon_species.name === pokemon.pokemon_species.name) ===
@@ -119,32 +111,12 @@ export class PokemonService {
       }
       return true;
     });
-
-    // return searchArray.filter(pokemon => {
-    //   let i = 0;
-    //   let flag = false;
-
-    //   for (const item of matched_pokemon) {
-    //     if (item.name === pokemon.pokemon_species.name) {
-    //       matched_pokemon.splice(i, 1);
-    //       filtered_data = item;
-    //       flag = true;
-    //       break;
-    //     }
-    //     i++;
-    //   }
-    //   return flag;
-    // });
   }
 
   // Compare and filter data from Region API with data from  pokeDexData and region name/id
   searchByRegion(searchArray: any, searchRegion: string, regionData?) {
     let matched_region: any;
-    // regionData.forEach((item, index, arr) => {
-    //   if (item.name === searchRegion) {
-    //     matched_region = item;
-    //   }
-    // });
+
     matched_region = regionData.find(x => x.name === searchRegion);
 
     POKEMON_BY_REGION_ID.forEach((item, index, array) => {
