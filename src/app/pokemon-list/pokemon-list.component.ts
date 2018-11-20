@@ -115,7 +115,6 @@ export class PokemonListComponent implements OnInit, OnDestroy {
 
   // call search function
   search() {
-    console.log(JSON.stringify(this.allPokemons));
     this.isLoading = true;
     this.filterPokemon();
     this.isLoading = false;

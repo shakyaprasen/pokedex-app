@@ -215,7 +215,6 @@ describe('PokemonService (with mocks)', () => {
     //call with cave habitat search parameter should contain magnemite pokemon
     it('should contain magnemite pokemon for cave search string parameters', () => {
       const searchResults = pokemonService.searchByHabitat(pokedex_data, 'cave', expected_habitat);
-      console.log(searchResults);
       expect(searchResults).not.toBeUndefined('cave habitat search Param should not be undefined');
       expect(searchResults[0].id).toBe(expectedPokemons[0].id, 'cave search should contain magnemite');
     });
