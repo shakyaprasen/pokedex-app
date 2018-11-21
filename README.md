@@ -9,8 +9,9 @@ This project runs on your system using angular 7.0.2 with the help of the RESTfu
 # Features:
 
 Search any National Pokemon by 
+
 	1. Pokemon Name
-	2. Gender - `male`, `female`, `genderless`
+	2. Gender - 'male', 'female', 'genderless'
 	3. Habitat - 'cave', 'forest','grassland','mountain','rare','rough-terrain','sea','urban','waters-edge'
 	4. Region - 'gen-1-kanto','gen-2-johto','gen-3-hoenn','gen-4-sinnoh','gen-5-unova','gen-6-kalos','sun-moon-alola'
 
