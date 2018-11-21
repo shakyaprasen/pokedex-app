@@ -6,7 +6,7 @@ This goal of this project is provide a basic Pokedex app so that you can customi
 
 This project runs on your system using angular 7.0.2 with the help of the RESTful API from PokeAPI (https://pokeapi.co/).
 
-Features:
+# Features:
 
 Search any National Pokemon by 
 	1. Pokemon Name
@@ -16,7 +16,7 @@ Search any National Pokemon by
 
 
 
-Getting Started - Local Development
+# Getting Started - Local Development
 
 	1. Fork the project from this repo.
 	2. Clone to your local computer using git.
