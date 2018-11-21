@@ -47,11 +47,6 @@ describe('PokemonDialogService ', () => {
       ];
     });
 
-    // afterEach(() => {
-    //   // After every test, assert that there are no more pending requests.
-    //   httpTestingController.verify();
-    // });
-
     it('should return expected pokemon details (called once)', () => {
       pokemonDialogService.getPokemonDetails(1);
       pokemonDialogService.getPokemonDetailUpdateListener().subscribe(pokemonDetails => {

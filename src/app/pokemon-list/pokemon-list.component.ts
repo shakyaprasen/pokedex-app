@@ -6,7 +6,7 @@ import { PokemonService } from '../pokemon.service';
 import { PokemonDetailDialogComponent } from '../pokemon-dialog/pokemon-dialog.component';
 import { Subscription } from 'rxjs';
 
-// 'female': 1, 'male': 2,'unknown': 3
+// 'female': 1, 'male': 2,'genderless': 3
 const GENDER_DATA = [1, 2, 3];
 // 'cave', 'forest','grassland','mountain','rare','rough-terrain','sea','urban','waters-edge'
 const HABITAT_DATA = [1, 2, 3, 4, 5, 6, 7, 8, 9];
