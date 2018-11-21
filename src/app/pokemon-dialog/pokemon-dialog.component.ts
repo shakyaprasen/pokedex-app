@@ -6,7 +6,6 @@ import { Subscription } from 'rxjs';
 import { DialogPokemonData } from './pokemon-dialog.model';
 import { PokemonDialogService } from './pokemon-dialog.service';
 
-
 // Pokemon details dialog box component
 @Component({
   templateUrl: './pokemon-detail.component.html',

@@ -5,18 +5,13 @@ import { HttpClient } from '@angular/common/http';
 
 import { PokemonDialogService } from './pokemon-dialog.service';
 
-
-
 describe('PokemonDialogService ', () => {
-
-
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
   let pokemonDialogService: PokemonDialogService;
 
   const POKEDEX_URL = 'https://pokeapi.co/api/v2/pokedex/1/';
   const POKEAPI_URL = 'https://pokeapi.co/api/v2';
-
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -41,17 +36,15 @@ describe('PokemonDialogService ', () => {
       pokemonDialogService = TestBed.get(PokemonDialogService);
       expectedDetails = [
         {
-          "base_experience": 64,
-          "height": 7,
-          "held_items": [],
-          "id": 1,
-          "is_default": true,
-          "name": "bulbasaur",
-          "weight": 69
-          
+          base_experience: 64,
+          height: 7,
+          held_items: [],
+          id: 1,
+          is_default: true,
+          name: 'bulbasaur',
+          weight: 69
         }
       ];
-
     });
 
     // afterEach(() => {
@@ -67,12 +60,11 @@ describe('PokemonDialogService ', () => {
       }, fail);
 
       // PokemonDialogService should have made one request to GET heroes details from expected URL
-      const req = httpTestingController.expectOne(POKEAPI_URL+ '/pokemon/1/');
+      const req = httpTestingController.expectOne(POKEAPI_URL + '/pokemon/1/');
       expect(req.request.method).toEqual('GET');
 
       // Respond with the mock heroes
       req.flush(expectedDetails);
-    });      
+    });
   });
-
 });

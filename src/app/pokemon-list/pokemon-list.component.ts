@@ -40,7 +40,6 @@ export class PokemonListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.fillPokeDex();
-    
   }
   ngOnDestroy() {
     this.pokemonSubs.unsubscribe();
