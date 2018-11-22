@@ -1,4 +1,5 @@
 # POKEDEX-app
+
 Get every pokemon from the national POKEDEX!
 
 This goal of this project is provide a basic Pokedex app so that you can customize it as you like.
