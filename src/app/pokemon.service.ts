@@ -88,8 +88,8 @@ export class PokemonService {
   }
   searchByName(searchArray: any, searchName) {
     return searchArray.filter(pokemon => {
-      const name = pokemon.pokemon_species.name;
-      return name.includes(searchName) ? pokemon : '';
+      const name = pokemon.pokemon_species.name.toLowerCase();
+      return name.includes(searchName.toLowerCase()) ? pokemon : '';
     });
   }
   // Compare and filter data from Gender API with data from  pokeDexData and gender name/id
