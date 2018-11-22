@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { DeferLoadModule } from '@trademe/ng-defer-load';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,7 +15,6 @@ import { PokemonDetailDialogComponent } from './pokemon-dialog/pokemon-dialog.co
 @NgModule({
   declarations: [AppComponent, PokemonListComponent, PokemonDetailDialogComponent, ErrorComponent],
   imports: [
-    DeferLoadModule,
     AppRoutingModule,
     BrowserModule,
     HttpClientModule,
